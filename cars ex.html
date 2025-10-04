@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./cars ex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    	<!-- *******  Font Awesome Icons Link  ******* -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
+	<!-- *******  Link To Goggle Fonts  *******  -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+
+    <script src="js/cars ex.js" defer></script>
+    <title>LAVINA| CARS</title>
+      
+  <style>
+       
+    :root{
+      --bg: #0b0c10;
+      --card: rgba(255,255,255,.06);
+      --text: #e6f1ff;
+      --muted: #9fb3c8;
+      --accent: #00e0ff;
+      --accent-2: #8a2be2;
+      --ring: #ffffff20;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --speed: .55s;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+     
+      overflow-x:hidden;
+    }
+
+    /* Layout shell without any <div> */
+    .div{padding:24px}
+    .div h1{font-size:clamp(22px, 3vw, 28px); margin:46; font-weight:700; letter-spacing: 30px}
+    p.lead{margin:.25rem 0 0; color:var(--muted); font-size:clamp(13px,2vw,15px)}
+
+    main{max-width:1650px; margin:24px auto; padding:0 16px}
+
+    /* Tabs Bar */
+    nav[role="tablist"]{
+      position:relative;
+      display:grid; grid-auto-flow:column; gap:8px; align-items:stretch;
+      background:color-mix(in oklab, #000 90%, #000 10%);
+      border-radius:calc(var(--radius) + 6px);
+      padding:10px; box-shadow:var(--shadow);
+      backdrop-filter: blur(8px);
+     
+      isolation:isolate;
+    }
+    button[role="tab"]{
+      position:relative;
+      appearance:none; -webkit-appearance:none;
+      border:0; outline:none; cursor:pointer;
+      border-radius:var(--radius);
+      padding:14px 16px; font-weight:700; letter-spacing:.3px;
+      color:var(--muted); background:transparent;
+      transition: color .25s ease, transform .25s ease;
+      overflow:hidden;
+    }
+
+    /* Ripple effect without extra wrappers */
+    button[role="tab"] .ripple{
+      position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(120px 120px at var(--x,50%) var(--y,50%), color-mix(in oklab, var(--accent) 60%, transparent 40%) 0%, transparent 60%);
+      opacity:0; transform: scale(0.9);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    button[role="tab"]:active .ripple{opacity:.6; transform: scale(1)}
+
+    button[role="tab"][aria-selected="true"]{ color:#000}
+    button[role="tab"]:hover{ color:#000 (in oklab, #000 80%, var(--muted) 20%); transform: translateY(-1px)}
+
+    /* Sliding indicator under active tab */
+    nav[role="tablist"]::after{
+      content:""; position:absolute; z-index:-1; height:44px; top:50%; transform:translateY(-50%);
+      width:var(--indicator-w, 20%); left:var(--indicator-x, 0%);
+      background: linear-gradient(135deg, color-mix(in oklab, #fff 85%, #fff 5%));
+      border-radius:calc(60px - 4px);
+      filter: saturate(1.1);
+      transition: left var(--speed) cubic-bezier(.2,.8,.2,1), width var(--speed) cubic-bezier(.2,.8,.2,1);
+    }
+
+    /* Panels container */
+    section.panels{
+      position:relative; margin-top:18px; min-height: 1000px;
+      background:#000; border-radius:calc(var(--radius) + 8px);
+      border:1px solid var(--ring); box-shadow:var(--shadow);
+      padding: clamp(14px, 2vw, 18px);
+      backdrop-filter: blur(10px);
+      overflow:clip;
+    }
+
+    /* Individual panel */
+    article[role="tabpanel"]{
+      position:absolute; inset:0; padding: clamp(14px, 3vw, 28px);
+      display:grid; gap:14px; align-content:start;
+      opacity:0; transform: translateY(24px) scale(.98);
+      transition: opacity var(--speed) ease, transform var(--speed) cubic-bezier(.2,.8,.2,1);
+      pointer-events:none;
+    }
+    article[role="tabpanel"][data-active="true"]{
+      opacity:1; transform: translateY(0) scale(1); pointer-events:auto;
+    }
+
+    /* Fancy heading chip */
+    .ccc h2{
+      display:inline-flex; align-items:center; gap:10px; margin:0 0 14px 70px;
+      font-size:clamp(18px, 2.5vw, 80px);letter-spacing:20px;
+    }
+    .ccc h2 .chip{
+      font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase;
+      padding:.35rem .6rem; border-radius:999px; background: #ffffff10; color: #d8e6ff;
+      border:1px solid var(--ring)
+    }
+
+    /* Content card (no <div>) */
+    article[role="tabpanel"] section.card{
+      display:grid; gap:10px; padding:14px 16px;
+      background: #ffffff08; border:1px solid var(--ring);
+      border-radius: calc(var(--radius) - 4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25) inset;
+    }
+    section.card strong{font-weight:800}
+    section.card small{color:var(--muted)}
+
+    /* Responsive tweaks */
+    @media (max-width: 720px){
+      nav[role="tablist"]{grid-auto-flow:row; grid-template-columns:repeat(5, 1fr)}
+      button[role="tab"]{padding:12px 10px; font-size:14px}
+      nav[role="tablist"]::after{height:38px}
+      section.panels{min-height: 360px}
+    }
+
+    /* Accessibility focus ring */
+    button[role="tab"]:focus-visible{
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 30%, #fff 10%);
+      border-radius: calc(var(--radius) - 6px);
+      outline: none;
+    }
+
+    /* Subtle floating particles (pure CSS) */
+    .floaty{ position:absolute; inset:auto; pointer-events:none; opacity:.5; filter:blur(2px)}
+    .floaty:nth-of-type(1){ top:-30px; left:6%; width:12px; height:12px; background:var(--accent); border-radius:50%; animation:fly 9s linear infinite}
+    .floaty:nth-of-type(2){ top:10px; right:10%; width:8px; height:8px; background:#00e0ff; border-radius:50%; animation:fly 11s linear infinite reverse}
+    .floaty:nth-of-type(3){ bottom:10px; left:30%; width:10px; height:10px; background:#6cf; border-radius:50%; animation:fly 13s linear infinite}
+
+    @keyframes fly{
+      0%{ transform: translateY(0) translateX(0)}
+      25%{ transform: translateY(-14px) translateX(6px)}
+      50%{ transform: translateY(0) translateX(12px)}
+      75%{ transform: translateY(10px) translateX(-2px)}
+      100%{ transform: translateY(0) translateX(0)}
+    }
+
+   
+
+
+  </style>
+
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+     
+    <div class="intro">
+        <h1 class="logo-header">
+            <span class="logo">L</span> <span class="logo">A</span> <span class="logo">V</span> <span class="logo">I</span> <span class="logo">N</span> <span class="logo">A</span>
+        </h1>
+    </div>
+<header>
+  <a href="#" class="menu" onclick="toggleMenu();"></a>
+  <ul class="nav">
+    <li class="dropdown">
+      <a href="#" onclick="toggleDropdown(event)">Cars ▾</a>
+      <div class="dropdown-menu">
+        <ul class="dropdown-list">
+           <li data-img="project-imgs/sleek-supercar-showroom-stockcake.jpg"><a href="#">ALL .</a></li>
+
+          <li class="has-sub" data-img="project-imgs/Screenshot 2025-09-02 162457.png">
+            <a href="#">SUV ▾</a>
+            <!-- Sub dropdown -->
+            <div class="sub-dropdown">
+              <ul class="sub-list">
+                <li data-img="project-imgs/bmw-m3.jpg"><a href="#">BMW M3</a></li>
+                <li data-img="project-imgs/bmw-i8.jpg"><a href="#">BMW i8</a></li>
+                <li data-img="project-imgs/bmw-x6.jpg"><a href="#">BMW X6</a></li>
+              </ul>
+          </li>
+
+          <li class="has-sub" data-img="project-imgs/thumbnail_9585eddc-2b82-4840-9442-743ea9494ca4.jpg.256x256_q85_crop-,.jpg">
+            <a href="#">Coupe ▾</a>
+            <div class="sub-dropdown">
+              <ul class="sub-list">
+                <li data-img="project-imgs/amg-gt.jpg"><a href="#">AMG GT</a></li>
+                <li data-img="project-imgs/g-class.jpg"><a href="#">G-Class</a></li>
+                <li data-img="project-imgs/c63.jpg"><a href="#">C63</a></li>
+              </ul>
+             
+          </li>
+
+          <li class="has-sub" data-img="project-imgs/vintage-car-seaside-stockcake.jpg">
+            <a href="#">Convertible ▾</a>
+             <div class="sub-dropdown">
+              <ul class="sub-list">
+                <li data-img="project-imgs/amg-gt.jpg"><a href="#">AMG GT</a></li>
+                <li data-img="project-imgs/g-class.jpg"><a href="#">G-Class</a></li>
+                <li data-img="project-imgs/c63.jpg"><a href="#">C63</a></li>
+              </ul>
+            </li>
+
+          <li class="has-sub" data-img="project-imgs/sleek-navy-sedan-stockcake.jpg">
+            <a href="#">Sedan ▾</a>
+             <div class="sub-dropdown">
+              <ul class="sub-list">
+                <li data-img="project-imgs/amg-gt.jpg"><a href="#">AMG GT</a></li>
+                <li data-img="project-imgs/g-class.jpg"><a href="#">G-Class</a></li>
+                <li data-img="project-imgs/c63.jpg"><a href="#">C63</a></li>
+              </ul>
+          </li>
+
+          <li class="has-sub" data-img="project-imgs/MY24_Mazda3_Hatchback_VLP_mobile_failover_hero.jpg">
+            <a href="#">Hatchback ▾</a>
+             <div class="sub-dropdown">
+              <ul class="sub-list">
+                <li data-img="project-imgs/amg-gt.jpg"><a href="#">AMG GT</a></li>
+                <li data-img="project-imgs/g-class.jpg"><a href="#">G-Class</a></li>
+                <li data-img="project-imgs/c63.jpg"><a href="#">C63</a></li>
+              </ul>
+          </li>
+        </ul>
+
+        <!-- Main preview -->
+        <div class="dropdown-preview">
+          <img id="preview-img" src="project-imgs/sleek-supercar-showroom-stockcake.jpg">
+        </div>
+      </div>
+    </li>
+
+    <li><a href="#">Store</a></li>
+    <li class="dropdown">
+    <a href="#" onclick="toggleDropdown(event)">About ▾</a>
+       <div class="dropdown-menu2">
+        <ul class="dropdown-list">
+           <li><a href="#">ABOUT .</a></li>
+           <li><a href="#">CAREER .</a></li>
+    
+ </ul>
+ </li>
+    <li><a href="#">Contact us</a></li>
+    
+</header>
+
+
+    
+    <div class="main-content">
+    <div class="banner">
+          <div class="bg-video-list">
+            <video class="bg-video mclaren-1 active"
+            src="project-imgs/mclaren-1.mp4"
+            autoplay
+            loop
+            muted></video>
+
+             <video class="bg-video mclaren-2"
+            src="project-imgs/mclaren-2.mp4"
+            autoplay
+            loop
+            muted></video>
+
+             <video class="bg-video mclaren-3"
+            src="project-imgs/mclaren-3.mp4"
+            autoplay
+            loop
+            muted></video>
+
+             <video class="bg-video mclaren-4"
+            src="project-imgs/mclaren-4.mp4"
+            autoplay
+            loop
+            muted></video>
+
+             <video class="bg-video mclaren-5"
+            src="project-imgs/mclaren-5.mp4"
+            autoplay
+            loop
+            muted></video>
+        </div>
+        <div class="content" data-aos="fade-up">
+            <h1>Lavina</h1>
+            <h3 class="model mclaren-1 active">Serirs ||</h3>
+             <h3 class="model mclaren-2" style="color: #058599;">BUGATTI DIVO</h3>
+             <h3 class="model mclaren-3"  style="color: rgb(151, 18, 18);">lamBORGINI VENENO</h3>
+             <h3 class="model mclaren-4" style="color: #ffffff;">MCLAREN 765LT</h3>
+             <h3 class="model mclaren-5"   style="color: #a2a5b8;">TESLA CYBERTRUCK</h3>
+            
+            <a href="#">choose Y speed</a>
+        </div>
+
+        <div class="gallery" data-aos="fade-up">
+             <div class="carousel">
+            <a class="carousel-item" href="#" onclick="changeVideo('mclaren-1')">
+                <img src="project-imgs/mclaren-1.jpg" alt="">
+            </a>
+            <a class="carousel-item" href="#" onclick="changeVideo('mclaren-2')">
+                 <img src="project-imgs/mclaren-2.png" alt="">
+            </a>
+            <a class="carousel-item" href="#" onclick="changeVideo('mclaren-3')">
+                 <img src="project-imgs/mclaren-3.png" alt="">
+            </a>
+            <a class="carousel-item" href="#" onclick="changeVideo('mclaren-4')">
+                 <img src="project-imgs/mclaren-4.jpeg" alt="">
+            </a>
+            <a class="carousel-item" href="#" onclick="changeVideo('mclaren-5')">
+                 <img src="project-imgs/mclaren-5.png" alt="">
+            </a>   
+        </div>
+      
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="cars ex.js"></script>
+     <script type="text/javascript">
+         $(document).ready(function(){ $('.carousel').carousel(); });
+     </script>
+     <div class="div">
+<h1>AVALABILE STOCK</h1></p>
+    </div>
+      
+  <main>
+    <!-- TABLIST -->
+    <nav role="tablist" aria-label="Car Classes" id="tabs">
+      <button role="tab" aria-selected="true" aria-controls="panel-d" id="tab-d" data-index="0"><span class="ripple"></span>D Class</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-c" id="tab-c" data-index="1"><span class="ripple"></span>C Class</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-b" id="tab-b" data-index="2"><span class="ripple"></span>B Class</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-a" id="tab-a" data-index="3"><span class="ripple"></span>A Class</button>
+      <button role="tab" aria-selected="false" aria-controls="panel-s" id="tab-s" data-index="4"><span class="ripple"></span>S Class</button>
+    </nav>
+
+    <!-- PANELS -->
+       <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+
+    <section class="panels">
+      <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+
+      <article role="tabpanel" id="panel-d" aria-labelledby="tab-d" tabindex="0" data-active="true">
+        <div class="ccc"><h2 data-aos="fade-right">D Class</h2></div>
+        <div class="cards-grid">
+             <a href="c-d/MINI Cooper Roadster.html" data-aos="fade-up">
+                  <div class="card" >
+                    <img src="cars-imgs/D-CLASS/MINI COOPER ROADSTER/mini056q.jpg" alt="">
+                    <div class="card-content">
+                        <h3>MINI Cooper Roadster</h3>
+                        <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/MINI COOPER ROADSTER/mini-cooper-logo-png_seeklogo-224659.png">
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="tags">
+                        <span class="tag">225 km/h</span>
+                        <span class="tag">Roadster</span>
+                        <span class="tag">2012</span><br>
+                        </div>
+                        <div class="bttn">USA 14,000</div>
+                    </div>
+                </div>
+              </a>
+
+                    <a href="c-d/Marcedes AMG G63.html"  data-aos="fade-up">
+                        <div class="card">
+                    <img src="cars-imgs/D-CLASS/Marcedes AMG G63/1743053761147.webp" alt="">
+                    <div class="card-content">
+                        <h3>Mercedes-AMG G63</h3>
+                         <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Marcedes AMG G63/mercedes-benz-logo-png_seeklogo-190348.png">
+                        </li>
+                        </ul>
+                         </div>
+                        <div class="tags">
+                        <span class="tag">240 km/h</span>
+                        <span class="tag">SUV</span>
+                        <span class="tag">1997 (G-Class)</span>
+                        </div>
+                        <div class="bttn">USA 14,000</div>
+                    </div>
+                </div>
+                    </a>
+
+
+                    <a href="c-d/Porsche 918 spyder Wessich.html"  data-aos="fade-down">
+                        <div class="card">
+                    <img src="cars-imgs/D-CLASS/Porsche 918 spyder Wessich/Used-2015-Porsche-918-Spyder-Weissach-Package-Liquid-Silver-Paint!-Front-Lift!-Serviced!-Carbon-Fiber!-1713282810 (4).jpg" alt="">
+                    <div class="card-content">
+                        <h3>Porsche 918 Spyder Weissach</h3>
+                         <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Porsche 918 spyder Wessich/Porsche_Logo.svg.png">
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="tags">
+                        <span class="tag">345 km/h</span>
+                        <span class="tag">Supercar</span>
+                        <span class="tag">2015</span>
+                        </div>
+                        <div class="bttn">USA 3,937,500</div>
+                    </div>
+                </div>
+                
+
+           
+                   <a href="c-d/Buick Rivera.html" data-aos="fade-down">
+                     <div class="card">
+                    <img src="cars-imgs/D-CLASS/Buick Rivera/2013-Buick-Riviera-Concept-front-three-quarter-1.jpg" alt="">
+                    <div class="card-content">
+                        <h3>Buick Riviera 2013</h3>
+                        <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Buick Rivera/Buick_logo.webp">
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="tags">
+                        <span class="tag">250 km/h</span>
+                        <span class="tag">Coupé</span>
+                        <span class="tag">2013</span>
+                        </div>
+                      <div class="bttn">USA 15,000</div>
+                    </div>
+                </div>
+                   </a>
+
+
+                    <a href="c-d/Chevorlet Camaro.html"  data-aos="fade-up">
+                        <div class="card">
+                    <img src="cars-imgs/D-CLASS/Chevorlet Camaro/we.jpg" alt="">
+                    <div class="card-content">
+                        <h3>Chevrolet Camaro</h3>
+                         <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Chevorlet Camaro/Chevrolet-Logo.png">
+                        </li>
+                        </ul>
+                         </div>
+                        <div class="tags">
+                        <span class="tag">250–290 km/h</span>
+                        <span class="tag">SUV</span>
+                        <span class="tag">2005</span>
+                        </div>
+                       <div class="bttn">USA 30,900</div>
+
+                    </div>
+                </div>
+                    </a>
+
+
+                    <a href="c-d/Honda Civic type R.html"  data-aos="fade-up">
+                        <div class="card">
+                    <img src="cars-imgs/D-CLASS/Honda Civic type R/01.jpg" alt="">
+                    <div class="card-content">
+                        <h3>Honda Civic Type R</h3>
+                         <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Honda Civic type R/honda-logo-hd-1080p-png-meaning-information-5.png">
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="tags">
+                        <span class="tag">270 km/h</span>
+                        <span class="tag">Hatchback</span>
+                        <span class="tag">1997</span>
+                        </div>
+                         <div class="bttn">USA 56,900</div>
+
+                    </div>
+                </div>
+                    </a>
+
+
+                <a href="c-d/Audi RS 4 avant.html" data-aos="fade-down">
+                    <div class="card">
+                    <img src="cars-imgs/D-CLASS/Audi RS 4 avant/1920x1080-rs4_2020_1500_scroll.jpg" alt="">
+                    <div class="card-content">
+                        <h3>Audi RS4 Avant</h3>
+                        <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/Audi RS 4 avant/audi-logo-png_seeklogo-13450.png">
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="tags">
+                        <span class="tag">250 km/h</span>
+                        <span class="tag">Wagon</span>
+                        <span class="tag">2000</span>
+                        </div>
+                        <div class="bttn">USA 34,000</div>
+
+                    </div>
+                </div>
+                </a>
+
+
+                    <a href="c-d/1966 Mustang GT convertibl.html" data-aos="fade-down">
+                        <div class="card">
+                    <img src="cars-imgs/D-CLASS/1966 Mustang GT convertibl/9d91a1481b4ecaeb5cb6df9152f0da05.jpg" alt="">
+                    <div class="card-content">
+                        <h3>1966 Mustang GT Convertible</h3>
+                         <div class="cast">
+                        <ul>
+					    <li><img src="cars-imgs/D-CLASS/1966 Mustang GT convertibl/93404201-7DC7-4B23-9AF5-F63700A63E76_2048x.webp">
+                        </li>
+                        </ul>
+                         </div>
+                        <div class="tags">
+                        <span class="tag">190 km/h	</span>
+                        <span class="tag">Convertible</span>
+                        <span class="tag">1966</span>
+                       
+                        </div>
+                       
+                       <div class="bttn">USA 70,000</div>
+                    </div>
+                </div>
+                    </a>
+        </div>
+       
+      </article>
+
+      <article role="tabpanel" id="panel-c" aria-labelledby="tab-c" tabindex="0">
+        <h2 data-aos="fade-right"><span class="chip">C Class</span> Compact Executive</h2>
+        <section class="card" data-aos="fade-up">
+          <strong>Overview</strong>
+          <small>Sporty refinement with luxury touches and agile handling.</small>
+        </section>
+        <section class="card" data-aos="fade-up">
+          <strong>Highlights</strong>
+          <p>Dynamic drive modes, premium cabin materials, and sharp infotainment.</p>
+        </section>
+      </article>
+
+      <article role="tabpanel" id="panel-b" aria-labelledby="tab-b" tabindex="0">
+        <h2 data-aos="fade-right"><span class="chip">B Class</span> Versatile Compact MPV</h2>
+        <section class="card" data-aos="fade-up">
+          <strong>Overview</strong>
+          <small>Flexible seating and elevated visibility with a compact footprint.</small>
+        </section>
+        <section class="card" data-aos="fade-up">
+          <strong>Highlights</strong>
+          <p>Family-first ergonomics, clever packaging, and efficient drivetrains.</p>
+        </section>
+      </article>
+
+      <article role="tabpanel" id="panel-a" aria-labelledby="tab-a" tabindex="0">
+        <h2 data-aos="fade-right"><span class="chip">A Class</span> Entry Luxury</h2>
+        <section class="card" data-aos="fade-up">
+          <strong>Overview</strong>
+          <small>Modern tech, youthful design, and city-friendly proportions.</small>
+        </section>
+        <section class="card" data-aos="fade-up">
+          <strong>Highlights</strong>
+          <p>Clean UI/UX, confident ride, and value-packed features.</p>
+        </section>
+      </article>
+
+      <article role="tabpanel" id="panel-s" aria-labelledby="tab-s" tabindex="0">
+        <h2 data-aos="fade-right"><span class="chip">S Class</span> </h2>
+        <section class="card" data-aos="fade-up">
+          <p>Executive rear seating, advanced safety, and whisper-quiet cruising.</p>
+        </section>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const tablist = document.querySelector('#tabs');
+      const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+      // Helper: set active tab/panel
+      function activate(index, {focusPanel=true, updateHash=true} = {}){
+        tabs.forEach((t,i)=>{
+          const selected = i===index;
+          t.setAttribute('aria-selected', String(selected));
+          t.tabIndex = selected ? 0 : -1;
+        });
+        panels.forEach((p,i)=>{
+          p.dataset.active = i===index ? 'true' : 'false';
+        });
+        // Move indicator
+        const pct = 100 / tabs.length;
+        tablist.style.setProperty('--indicator-w', pct + '%');
+        tablist.style.setProperty('--indicator-x', (pct * index) + '%');
+        if(focusPanel) panels[index].focus({preventScroll:false});
+        if(updateHash) history.replaceState(null, '', '#' + panels[index].id);
+      }
+
+      // Click handling + ripple coords
+      tabs.forEach(btn=>{
+        btn.addEventListener('pointerdown', e=>{
+          const r = btn.querySelector('.ripple');
+          const rect = btn.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          r.style.setProperty('--x', x + '%');
+          r.style.setProperty('--y', y + '%');
+        });
+        btn.addEventListener('click', ()=> activate(Number(btn.dataset.index)) );
+      });
+
+      // Keyboard navigation (Arrow keys / Home / End)
+      tablist.addEventListener('keydown', (e)=>{
+        const current = tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+        let next = current;
+        if(e.key==='ArrowRight' || e.key==='ArrowDown') next = (current + 1) % tabs.length;
+        else if(e.key==='ArrowLeft' || e.key==='ArrowUp') next = (current - 1 + tabs.length) % tabs.length;
+        else if(e.key==='Home') next = 0;
+        else if(e.key==='End') next = tabs.length - 1;
+        else if(e.key==='Enter' || e.key===' ') { activate(current); return; }
+        else return;
+        e.preventDefault();
+        tabs[next].focus();
+        activate(next);
+      });
+
+      // Deep-link: open panel from URL hash
+      function initFromHash(){
+        const id = location.hash.replace('#','');
+        if(!id) return activate(0, {focusPanel:false, updateHash:false});
+        const idx = panels.findIndex(p=>p.id===id);
+        activate(idx>-1 ? idx : 0, {focusPanel:false, updateHash:false});
+      }
+      window.addEventListener('hashchange', initFromHash, {passive:true});
+      initFromHash();
+
+      // Accessibility: ensure indicator size on resize
+      const ro = new ResizeObserver(()=>{
+        const current = tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+        const pct = 100 / tabs.length;
+        tablist.style.setProperty('--indicator-w', pct + '%');
+        tablist.style.setProperty('--indicator-x', (pct * current) + '%');
+      });
+      ro.observe(tablist);
+    })();
+  </script>
+ <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+
+  <div class="div">
+<h1>Wall Frames</h1></p>
+    </div>
+ <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+
+ <div class="slider-container">
+    <div class="slider-wrapper">
+      <!-- slide 1 -->
+      <div class="slide">
+        <!-- الكارت 1 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Cars-Mockup-5_7744e7ed-bd86-42c3-ba2e-15d3bb64deca.webp" alt="Porsche '911 GT3' Frame"></div>
+          <div class="detai">
+            <h1>Porsche '911 GT3' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><span>4/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 30</p>
+          </div>
+        </div>
+        <!-- الكارت 2 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Ferrari-White-Hard-Fiber-Framed-Poster-Ferrari-F40-Iconic-Masterpiece.webp" alt="Ferrari F40"></div>
+          <div class="detai">
+            <h1>Ferrari F40 'Iconic Masterpiece' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 40</p>
+          </div>
+        </div>
+        <!-- الكارت 3 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Ferrari-White-Hard-Fiber-Framed-Poster-Red-Rush.webp" alt="Ferrari Red Rush"></div>
+          <div class="detai">
+            <h1>Ferrari 'Red Rush' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><span>3/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 30</p>
+          </div>
+        </div>
+      </div>
+      <!-- slide 2 -->
+      <div class="slide">
+        <!-- الكارت 4 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Lamborghini-White-Hard-Fiber-Framed-Poster-Diablo-Golden-Dream.webp" alt="Lamborghini"></div>
+          <div class="detai">
+            <h1>Lamborghini Diablo 'Golden Dream' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><span>3/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 30</p>
+          </div>
+        </div>
+        <!-- الكارت 5 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Porsche-White-Hard-Fiber-Framed-Poster-Timeless-Machine_1001ecdf-dde1-4049-a5c4-aa0f2adf1b5b.webp" alt="Porsche Timeless Machine"></div>
+          <div class="detai">
+            <h1>Porsche 'Timeless Machine' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><span>4/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 40</p>
+          </div>
+        </div>
+        <!-- الكارت 6 -->
+        <div class="ca" data-aos="zoom-in">
+          <div class="post"><img src="project-imgs/Porsche-White-Hard-Fiber-Framed-Poster-Perfection_4fc6b3e3-cb91-43f1-9a1b-ebd83822138e.webp" alt="Porsche Perfection"></div>
+          <div class="detai">
+            <h1>Porsche 'Perfection' Frame</h1>
+            <div class="rati"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>5/5</span></div>
+            <div class="ta"><a href="c-d/visa.html"><span class="t">granite</span><span class="t">wood</span><span class="t">glass</span></a></div>
+            <p class="de">USA 30</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navigation buttons -->
+    <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+    <a class="next" onclick="moveSlide(1)">&#10095;</a>
+  </div>
+<script>let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+  if (index < 0) currentIndex = totalSlides - 1;
+  else if (index >= totalSlides) currentIndex = 0;
+  else currentIndex = index;
+  const offset = -currentIndex * 100;
+  document.querySelector('.slider-wrapper').style.transform = `translateX(${offset}%)`;
+}
+
+function moveSlide(n) {
+  showSlide(currentIndex + n);
+}
+
+showSlide(0);</script>
+        
+<section>
+   <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+  
+        <ul class="x">
+        <li>
+            <a href="#">
+                <i class="fa-brands fa-facebook-f" aria-hidden="true"    data-aos="fade-right"></i>
+                <span>- Facebook</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa-brands fa-youtube" aria-hidden="true"  data-aos="fade-right"></i>
+                <span>- youtube</span>
+            </a>
+        </li>
+
+        <li>
+             <a href="#">
+                <i class="fa-brands fa-google-plus-g" aria-hidden="true"  data-aos="fade-right"></i>
+                <span>- Google</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa-brands fa-instagram" aria-hidden="true"  data-aos="fade-right"></i>
+                <span>- Instgram</span>
+            </a>
+        </li>
+    </ul>
+  
+</section>
+<div class="about">
+  <h3  data-aos="fade-right">ABOUT</h3>
+<span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+  <p  data-aos="fade-right">Founded around 3 years ago, We have sold over 1000 cars.<br>
+     Our collection represents
+     the finest examples of automotive excellence.<br> We are the premier destination for rare cars.
+      We have the inside track on new releases, <br>and our collection is the envy of car enthusiasts everywhere.<br>
+    Founded around 3 years ago, We have sold over 1000 cars.<br>
+     Our collection represents
+     the finest examples of automotive excellence.<br> We are the premier destination for rare cars.
+      We have the inside track on new releases, <br>and our collection is the envy of car enthusiasts everywhere.
+    Founded around 3 years ago, We have sold over 1000 cars.<br>
+     Our collection represents
+     the finest examples of automotive excellence.<br> We are the premier destination for rare cars.
+      We have the inside track on new releases, <br>and our collection is the envy of car enthusiasts everywhere.</p>
+     <div class="bann" data-aos="fade-up">
+       <div class="scree">
+        <div class="shadow"></div>
+        <div>
+            <span style="--i: 0"> <video class="trailer mclaren-1 screen-video active" src="project-imgs/mclaren-1.mp4" alt=""  autoplay
+            loop
+            muted></video></span>
+           
+            <span style="--i: 1"> <video class="screen-video" src="project-imgs/mclaren-2.mp4" alt=""  autoplay
+            loop
+            muted></video></span>
+           
+            <span style="--i: 2"> <video class="screen-video" src="project-imgs/mclaren-5.mp4" alt=""  autoplay
+            loop
+            muted></video></span>
+            
+            <span style="--i: 3"><video class="screen-video" src="project-imgs/mclaren-4.mp4" alt=""  autoplay
+            loop
+            muted></video></span>
+             
+        </div>
+      </div>
+     </div>
+
+     </div>
+  </div>
+  <section>
+   <div class="fini">
+      <h2 data-aos="fade-right">OUR TEAM</h2>
+      <p  data-aos="fade-right">
+        We're firm believers that purchasing a luxury vehicle should be <br>
+        an exhilarating and delightful experience. <br>
+        That's why, at F1rst Motors, our knowledgeable team is always at your service to assist you<br>
+         in finding the ideal car that perfectly suits your needs and desires. Whether you're in search of a <br>
+        cutting-edge supercar or a timeless classic,<br>
+         we're confident that we have something in our collection to meet your requirements.<br>
+           We're firm believers that purchasing a luxury vehicle should be <br>
+        an exhilarating and delightful experience. <br>
+        That's why, at F1rst Motors, our knowledgeable team is always at your service to assist you<br>
+         in finding the ideal car that perfectly suits your needs and desires. Whether you're in search of a <br>
+        cutting-edge supercar or a timeless classic,<br>
+         we're confident that we have something in our collection to meet your requirements.<br>
+           We're firm believers that purchasing a luxury vehicle should be <br>
+        an exhilarating and delightful experience. <br>
+        That's why, at F1rst Motors, our knowledgeable team is always at your service to assist you<br>
+         in finding the ideal car that perfectly suits your needs and desires. Whether you're in search of a <br>
+        cutting-edge supercar or a timeless classic,<br>
+         we're confident that we have something in our collection to meet your requirements.<br>
+      </p>
+      
+      <img src="project-imgs/Screenshot 2025-08-25 052920.png" alt="" data-aos="fade-up">
+      <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+     </div>
+  </section>
+
+  <div class="div">
+<h1>CATEGORIES</h1></p>
+    </div>
+    <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+       
+        <div class="flex">
+           <div class="carder">
+          <img src="project-imgs/1755100985817-blob.webp" alt=""  data-aos="fade-up">
+          <div class="card-conteneer">
+            <h2 data-aos="fade-right">AVALABILE CARS</h2>
+           <a href="#"> <div class="line"></div></a>
+            <div class="radius">
+              >
+            </div>
+          </div>
+        </div>
+
+          <div class="carder">
+          <img src="project-imgs/Porsche-White-Hard-Fiber-Framed-Poster-Perfection_4fc6b3e3-cb91-43f1-9a1b-ebd83822138e - Copy.jpg" alt=""  data-aos="fade-up">
+          <div class="card-conteneer">
+            <h2 data-aos="fade-right">STORE</h2>
+           <a href="#"> <div class="line"></div></a>
+            <div class="radius">
+              >
+            </div>
+          </div>
+        </div>
+
+          <div class="carder">
+          <img src="project-imgs/1730298571456-blob.webp" alt="" data-aos="fade-up">
+          <div class="card-conteneer">
+            <h2 data-aos="fade-right">ABOUT US</h2>
+           <a href="#"> <div class="line"></div></a>
+            <div class="radius">
+              >
+            </div>
+          </div>
+        </div>
+
+          <div class="carder">
+          <img src="project-imgs/1728478347199-blob.webp" alt=""  data-aos="fade-up">
+          <div class="card-conteneer">
+            <h2 data-aos="fade-right">CARRER</h2>
+           <a href="#"> <div class="line"></div></a>
+            <div class="radius">
+              >
+            </div>
+          </div>
+        </div>
+
+          <div class="carder">
+          <img src="project-imgs/1716572203319-blob.png" alt=""  data-aos="fade-up">
+          <div class="card-conteneer">
+            <h2 data-aos="fade-right">CONTACT</h2>
+           <a href="#"> <div class="line"></div></a>
+            <div class="radius">
+              >
+            </div>
+          </div>
+        </div>
+        </div>
+     
+
+
+     <section class="image-section">
+    <img src="Screenshot 2025-09-01 141036.png" alt="Rolls Royce">
+  </section>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo(".image-section img",
+      { scale: 0.5 },
+      {
+        scale: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".image-section",
+          start: "top top",
+          end: "+=100%", // مدة التثبيت
+          scrub: true,
+          pin: true
+        }
+      }
+    );
+  </script>
+
+   <span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+   
+
+<section class="slider-section">
+  <div class="text-side">
+    <div><h3>Excellence</h3><br>
+            We believe in perfection, meticulous attention to detail,<br> and creativity to push boundaries.  </div>
+    <div><h3>Dedication</h3>
+            We strive to go above and beyond for our customers,<br> delivering exclusive experiences and products. </div>
+    <div><h3>Passion</h3>
+           At LAVINA, passion drives everything we do.<br> It is through this passion that.<br>we shape the future of the hyper sports car industry. </div>
+  </div>
+  <div class="image-side">
+    <img src="project-imgs/220303-Praga-Celebration-Resized.jpg" />
+    <img src="project-imgs/Screenshot 2025-08-26 181744.png" />
+    <img src="project-imgs/Screenshot 2025-08-26 182231.png" />
+  </div>
+</section>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const texts = document.querySelectorAll(".text-side div");
+  const images = document.querySelectorAll(".image-side img");
+  const totalSlide = texts.length;
+
+  // Timeline مربوط بالسكرول
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".slider-section",
+      start: "top top",
+      end: "+=" + (window.innerHeight * totalSlides),
+      scrub: true,
+      pin: true,
+    }
+  });
+
+  texts.forEach((text, i) => {
+    let img = images[i];
+
+    // أول واحدة تظهر
+    if (i === 0) {
+      tl.to(text, { opacity: 1, duration: 0.5 }, i)
+        .to(img, { opacity: 1, duration: 0.5 }, i);
+    } else {
+      // اللي قبلها يختفي واللي بعدها يظهر
+      tl.to(texts[i - 1], { opacity: 0, duration: 0.5 }, i)
+        .to(images[i - 1], { opacity: 0, duration: 0.5 }, i)
+        .to(text, { opacity: 1, duration: 0.5 }, i)
+        .to(img, { opacity: 1, duration: 0.5 }, i);
+    }
+  });
+</script>
+<span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+  
+<section class="contact-us">
+  <div class="container">
+		<main class="row">
+			
+			<!--  *******   Left Section (Column) Starts   *******  -->
+
+			<section class="col left">
+				
+				<!--  *******   Title Starts   *******  -->
+
+				<div class="contactTitle">
+					<h2 data-aos="fade-right">CONTACT US</h2>
+					<p>if you have any promplem or mistake please send to us</p>
+				</div>
+
+				<!--  *******   Title Ends   *******  -->
+
+				<!--  *******   Contact Info Starts   *******  --><span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+
+				<div class="contactInfo">
+					
+					<div class="iconGroup">
+						<div class="icon">
+							<i class="fa-solid fa-phone"></i>
+						</div>
+						<div class="details" data-aos="fade-right">
+							<span>Phone</span>
+							<span>+20 100 779 6217</span>
+						</div>
+					</div>
+
+					<div class="iconGroup">
+						<div class="icon">
+							<i class="fa-solid fa-envelope"></i>
+						</div>
+						<div class="details"  data-aos="fade-right">
+							<span>Email</span>
+							<span>ziadmr508@Gmail.com</span>
+						</div>
+					</div>
+
+					<div class="iconGroup">
+						<div class="icon">
+							<i class="fa-solid fa-location-dot"></i>
+						</div>
+						<div class="details"  data-aos="fade-right">
+							<span>Location</span>
+							<span>France<br>
+              Paris-Monaco<br><br>
+            Germany<br>
+          frunkfurt<br><br>
+        Egypt<br>
+      alexandria<br>
+    sharm el-shakih</span>
+						</div>
+					</div>
+
+				</div>
+
+				<!--  *******   Contact Info Ends   *******  -->
+
+				<!--  *******   Social Media Starts   *******  -->
+
+			
+
+				<!--  *******   Social Media Ends   *******  -->
+
+			</section>
+
+			<!--  *******   Left Section (Column) Ends   *******  -->
+
+			<!--  *******   Right Section (Column) Starts   *******  -->
+
+			<section class="col right">
+				
+				<!--  *******   Form Starts   *******  -->
+
+				<form class="messageForm">
+					
+					<div class="inputGroup halfWidth"  data-aos="fade-up">
+						<input type="text" name="" required="required">
+						<label>Your Name</label>
+					</div>
+
+					<div class="inputGroup halfWidth"  data-aos="fade-up">
+						<input type="email" name="" required="required">
+						<label>Email</label>
+					</div>
+
+					<div class="inputGroup fullWidth"  data-aos="fade-up">
+						<input type="text" name="" required="required">
+						<label>Subject</label>
+					</div>
+
+					<div class="inputGroup fullWidth"  data-aos="fade-up">
+						<textarea required="required"></textarea>
+						<label>Say Something</label>
+					</div>
+
+					<div class="inputGroup fullWidth"  data-aos="fade-up">
+						<a class="btttn" id="reserveBtn" >Send Message</a>
+          
+					</div>
+
+				</form>
+<span class="floaty"></span><span class="floaty"></span><span class="floaty"></span>
+				<!--  *******   Form Ends   *******  -->
+			</section>
+
+			<!--  *******   Right Section (Column) Ends   *******  -->
+
+		</main>
+	</div>
+<span class="toast" id="toast">Your message was arrived ✓</span>
+
+  <script>
+   
+
+     const toast = document.getElementById('toast');
+    document.getElementById('reserveBtn').addEventListener('click', ()=>{
+      toast.classList.add('show');
+      setTimeout(()=> toast.classList.remove('show'), 3800);
+    });
+  </script>
+  
+</section>
+</body>
+</html>
+
+
+  
+
+
